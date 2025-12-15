@@ -1,37 +1,43 @@
-# Parent Control API
+# XyraPanel Backend API
 
-RESTful API for parental monitoring data synchronization.
+Backend server untuk fitur Laporkan Masalah di XyraPanel.
 
-## Deployment to Vercel
+## Setup di Vercel
 
-1. Push this folder to GitHub
-2. Import the repository in Vercel
-3. Set environment variable: `SECRET_KEY`
-4. Deploy
+1. Push folder ini ke GitHub
+2. Import repository di Vercel
+3. Set Environment Variables:
+   - `SMTP_USER`: xyraofficialsup@gmail.com
+   - `SMTP_PASS`: (app password Gmail Anda)
+4. Deploy!
 
-## API Endpoints
+## API Endpoint
 
-### Authentication
-- `POST /api/auth/register` - Register a new device
-- `POST /api/auth/login` - Verify device token
+### POST /api/report
 
-### Data Upload (requires X-API-Token header)
-- `POST /api/data/location` - Upload location data
-- `POST /api/data/contacts` - Upload contacts
-- `POST /api/data/sms` - Upload SMS logs
-- `POST /api/data/gallery` - Upload gallery metadata
+Mengirim laporan masalah via email.
 
-### Data Fetch (requires X-API-Token header)
-- `GET /api/fetch/all` - Get all device data
-- `GET /api/fetch/locations` - Get location history
-- `GET /api/fetch/contacts` - Get contacts
-- `GET /api/fetch/sms` - Get SMS logs
-- `GET /api/fetch/gallery` - Get gallery metadata
+**Request Body:**
+```json
+{
+  "message": "Deskripsi masalah",
+  "deviceInfo": "Info perangkat",
+  "subject": "Subject email (opsional)",
+  "appVersion": "1.0"
+}
+```
 
-### Public
-- `GET /api/devices` - List registered devices
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Laporan berhasil dikirim!"
+}
+```
 
-## Security Features
-- API token authentication
-- Encrypted data transmission (HTTPS)
-- Token-based access control
+## Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| SMTP_USER | Email Gmail untuk mengirim |
+| SMTP_PASS | App Password Gmail |
